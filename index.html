@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+    <title>Quiz Game</title>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WINNERS QUIZ</h1>
+        </div>
+        <div class="welcome">
+            <h2>Welcome</h2>
+            <p>Let's test your knowledge about IT developpers</p>
+            <div class="startDiv" >
+                <button id="startQuizBtn">Start Quiz</button>
+            </div>
+            
+        </div>
+
+        <!-- PARTIES JEU -->
+         <div id="divGaming">
+            <div class="quizTime">
+                <p id="styleQuizTime">QUIZ TIME</p>
+                <div class="questionsPropositions">
+                    <div id="questions">
+                        <p id="question" style="text-align: center;"><!--La question s'ajoute dynamiquement--></p>
+                    </div>
+                    <div id="propositions">
+                       <!-- les propositions seront ajoutés dynammiquement -->
+                    </div>
+                </div>
+                    <div class="nextBtn">
+                        <button class="next">Next</button>
+                        <button id="restart" class="hide">Rejouer</button>
+                    </div>
+            </div>
+         </div>
+    </div>
+    <script src="variables.js"></script>
+    <script src="app.js" defer></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</body>
+</html>

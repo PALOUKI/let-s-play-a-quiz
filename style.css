@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Rowdies:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Goldman:wght@400;700&family=Rowdies:wght@300;400;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Goldman", sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background-color: #f3f4f6; */
+    background-image: url("img/yes.jpg"); /* Correction de la syntaxe */
+    background-size: cover; 
+    background-position: center;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px; /* Limiter la largeur à 600px pour un meilleur affichage */
+    margin: auto;
+    
+}
+
+.header {
+    height: auto;
+    width: 100%;
+    background-color: rgb(83, 83, 133);
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0px 4px 9px black;
+}
+
+.header h1 {
+    font-family: "Rowdies", sans-serif;
+    color: white;
+    text-shadow: 2px 4px 3px black;
+    font-size: 2rem;
+}
+
+.welcome {
+    display: block;
+    margin: 20px auto;
+    background-color: rgb(234, 241, 236);
+    box-shadow: 0px 4px 9px black;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.welcome h2 {
+    font-weight: bold;
+    font-size: 2rem;
+    color: blue;
+    font-family: "Rowdies", sans-serif;
+}
+
+.welcome p {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: #333;
+}
+
+.welcome #startQuizBtn {
+    padding: 10px 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0px 4px 9px rgb(74, 73, 73);
+    font-weight: bold;
+    font-size: 1rem;
+    border: none;
+    color: white;
+    background-image: linear-gradient(to bottom, #ffcccc, #ff6666);
+    cursor: pointer;
+}
+
+.quizTime {
+    padding: 15px;
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0px 4px 9px black;
+    background-color: #fff;
+    display: none; /* Par défaut, caché */
+}
+
+.quizTime #styleQuizTime {
+    font-size: 1.2rem;
+    font-weight: bold;
+    font-family: "Rowdies", sans-serif;
+    color: blue;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.questionsPropositions {
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0px 1px 3px black;
+}
+
+.questionsPropositions #propositions {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); /* Responsive grid */
+    gap: 10px;
+}
+
+.questionsPropositions #propositions .btn {
+    padding: 10px;
+    border-radius: 7px;
+    background-color: aliceblue;
+    border: none;
+    box-shadow: 0px 1px 3px black;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1rem;
+}
+
+.questionsPropositions #propositions .btn:hover {
+    opacity: 0.7;
+}
+
+.nextBtn {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.nextBtn .next {
+    padding: 10px 20px;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    box-shadow: 0px 4px 9px rgb(74, 73, 73);
+    border: none;
+    background-image: linear-gradient(to bottom, #ffcccc, #ff6666);
+    cursor: pointer;
+}
+
+.nextBtn .hide {
+    display: none;
+}
+
+.correct {
+    background-color: green !important;
+    color: white;
+    border: white 2px solid !important;
+}
+
+.wrong {
+    background-color: red !important;
+    color: white;
+    border: white 2px solid !important;
+}
+
+/* --- Media Queries for Responsiveness --- */
+
+@media (max-width: 768px) {
+    .header h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome h2 {
+        font-size: 1.5rem;
+    }
+
+    .welcome p {
+        font-size: 0.9rem;
+    }
+
+    .quizTime {
+        padding: 10px;
+    }
+
+    .questionsPropositions #propositions .btn {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    .nextBtn .next {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.2rem;
+    }
+
+    .welcome h2 {
+        font-size: 1.2rem;
+    }
+
+    .welcome p {
+        font-size: 0.8rem;
+    }
+
+    .questionsPropositions #propositions {
+        grid-template-columns: 1fr; /* Une seule colonne pour les petits écrans */
+    }
+
+    .questionsPropositions #propositions .btn {
+        padding: 6px;
+        font-size: 0.8rem;
+    }
+
+    .nextBtn .next {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+}
+/* Animation pour l'apparition de la question */
+#question {
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#question.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation pour les boutons de réponse */
+#propositions button {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+#propositions button.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Animation pour les réponses correctes et incorrectes */
+.correct {
+    background-color: #28a745;
+    animation: fadeInGreen 0.3s forwards;
+}
+
+.wrong {
+    background-color: #dc3545;
+    animation: fadeInRed 0.3s forwards;
+}
+
+@keyframes fadeInGreen {
+    from {
+        background-color: #28a745;
+        opacity: 0;
+    }
+    to {
+        background-color: #28a745;
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInRed {
+    from {
+        background-color: #dc3545;
+        opacity: 0;
+    }
+    to {
+        background-color: #dc3545;
+        opacity: 1;
+    }
+}
+
+/* Animation de l'affichage du score */
+#styleQuizTime {
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+}
+
+#styleQuizTime.show {
+    opacity: 1;
+}
