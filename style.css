@@ -64,7 +64,8 @@ body {
 .welcome p {
     margin-top: 20px;
     font-size: 1rem;
-    color: #333;
+    color: #4b4a4a;
+    font-weight: 600;
 }
 
 .welcome #startQuizBtn {
