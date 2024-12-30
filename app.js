@@ -74,15 +74,6 @@ function loadQuestion() {
 
     nextBtn.classList.add("hide");
 }
-
-function resetState() {
-    propositionsContainer.innerHTML = "";
-    Array.from(propositionsContainer.children).forEach((button) => {
-        button.classList.remove("correct", "wrong");
-        button.classList.remove("show");
-    });
-}
-
 function selectAnswer(e) {
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct === "true";
@@ -92,9 +83,27 @@ function selectAnswer(e) {
         setStatusClass(button, button.dataset.correct === "true");
     });
 
+    // Mise à jour de l'icône en fonction de la réponse
+    const resultIcon = document.getElementById("resultIcon");
+    if (correct) {
+        resultIcon.src = "img/checkmark-icon.png"; // Icône verte
+    } else {
+        resultIcon.src = "img/cross-icon.png"; // Icône rouge
+    }
+    resultIcon.style.display = "inline-block"; // Afficher l'icône
+
     nextBtn.classList.remove("hide");
     updateScoreDisplay(); // Mettre à jour le score immédiatement après la réponse
 }
+
+// Réinitialiser l'icône à chaque nouvelle question
+function resetState() {
+    propositionsContainer.innerHTML = "";
+    const resultIcon = document.getElementById("resultIcon");
+    resultIcon.style.display = "none"; // Masquer l'icône
+    resultIcon.src = ""; // Réinitialiser l'image source
+}
+
 
 function setStatusClass(button, correct) {
     button.classList.remove("correct", "wrong");
