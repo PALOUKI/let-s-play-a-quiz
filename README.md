@@ -1,6 +1,7 @@
 #Quiz
-![](./screenshots/welcome.png)
-![](./screenshots/no-choice.png)
-![](./screenshots/correct.png)
-![](./screenshots/incorrect.png)
-![](./screenshots/end.png)
+![](./screenshots/un.png)
+![](./screenshots/deux.png)
+![](./screenshots/trois.png)
+![](./screenshots/quatre.png)
+![](./screenshots/cinq.png)
+![](./screenshots/six.png)
