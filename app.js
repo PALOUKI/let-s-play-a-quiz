@@ -6,10 +6,15 @@ const propositionsContainer = document.getElementById("propositions");
 const nextBtn = document.querySelector(".next");
 const restartBtn = document.getElementById("restart");
 const quizTimeTitle = document.getElementById("styleQuizTime"); // Élément pour afficher le score
+let timerElement = null; // Élément pour afficher le timer
+const progressBar = document.querySelector(".progress-bar");
+const progressText = document.querySelector(".progress-text");
 
 let currentQuestionIndex = 0;
 let score = 0;
 let shuffledQuestions = []; // Questions mélangées
+let timeLeft = 30; // Temps en secondes pour répondre
+let timerId = null; // ID du timer pour pouvoir l'arrêter
 
 startQuizBtn.addEventListener("click", startQuiz);
 nextBtn.addEventListener("click", () => {
@@ -38,6 +43,17 @@ function startQuiz() {
     currentQuestionIndex = 0;
     score = 0;
 
+    // Initialiser la barre de progression
+    updateProgressBar();
+
+    // Créer et insérer le timer s'il n'existe pas déjà
+    if (!timerElement) {
+        timerElement = document.createElement("div");
+        timerElement.classList.add("timer");
+        const questionsPropositions = document.querySelector(".questionsPropositions");
+        quizScreen.insertBefore(timerElement, questionsPropositions);
+    }
+
     // Afficher le score dès le début
     quizTimeTitle.classList.add("show");
     updateScoreDisplay(); // Mettre à jour le score initial
@@ -49,6 +65,13 @@ function loadQuestion() {
     resetState();
     const currentQuestion = shuffledQuestions[currentQuestionIndex];
     questionElement.innerText = currentQuestion.question;
+    
+    // Mettre à jour la barre de progression
+    updateProgressBar();
+    
+    // Démarrer le timer
+    timeLeft = 30;
+    startTimer();
 
     // Ajouter l'animation à la question
     questionElement.classList.add("show");
@@ -75,6 +98,9 @@ function loadQuestion() {
     nextBtn.classList.add("hide");
 }
 function selectAnswer(e) {
+    // Arrêter le timer quand une réponse est sélectionnée
+    clearInterval(timerId);
+    timerId = null;
     const selectedButton = e.target;
     const correct = selectedButton.dataset.correct === "true";
     if (correct) score++; // Incrémenter le score si la réponse est correcte
@@ -102,6 +128,12 @@ function resetState() {
     const resultIcon = document.getElementById("resultIcon");
     resultIcon.style.display = "none"; // Masquer l'icône
     resultIcon.src = ""; // Réinitialiser l'image source
+    
+    // Arrêter le timer précédent s'il existe
+    if (timerId) {
+        clearInterval(timerId);
+        timerId = null;
+    }
 }
 
 
@@ -111,6 +143,37 @@ function setStatusClass(button, correct) {
         button.classList.add("correct");
     } else {
         button.classList.add("wrong");
+    }
+}
+
+// Fonction pour gérer le timer
+function startTimer() {
+    updateTimerDisplay();
+    timerId = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+        
+        if (timeLeft <= 0) {
+            clearInterval(timerId);
+            timerId = null;
+            // Passer automatiquement à la question suivante
+            currentQuestionIndex++;
+            if (currentQuestionIndex < shuffledQuestions.length) {
+                loadQuestion();
+            } else {
+                endQuiz();
+            }
+        }
+    }, 1000);
+}
+
+// Fonction pour mettre à jour l'affichage du timer
+function updateTimerDisplay() {
+    timerElement.textContent = `Temps restant : ${timeLeft} secondes`;
+    if (timeLeft <= 10) {
+        timerElement.style.color = "red";
+    } else {
+        timerElement.style.color = "black";
     }
 }
 
@@ -139,4 +202,14 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]]; // Échange des éléments
     }
     return array;
+}
+
+// Fonction pour mettre à jour la barre de progression
+function updateProgressBar() {
+    const totalQuestions = shuffledQuestions.length;
+    const currentQuestion = currentQuestionIndex + 1;
+    const progressPercentage = (currentQuestion / totalQuestions) * 100;
+    
+    progressBar.style.width = `${progressPercentage}%`;
+    progressText.textContent = `Question ${currentQuestion}/${totalQuestions}`;
 }

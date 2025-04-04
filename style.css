@@ -101,6 +101,50 @@ body {
     text-align: center;
 }
 
+/* Style pour la barre de progression */
+.progress-container {
+    width: 100%;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 3px;
+    margin: 15px 0;
+    position: relative;
+}
+
+.progress-bar {
+    height: 20px;
+    background-image: linear-gradient(to right, #20adea, #3423c9);
+    border-radius: 7px;
+    width: 0%;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin: 0;
+    text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Style pour le timer */
+.timer {
+    font-size: 1.2rem;
+    margin: 15px 0;
+    text-align: center;
+    font-weight: bold;
+    font-family: "Goldman", sans-serif;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: color 0.3s ease;
+}
+
 .questionsPropositions {
     padding: 15px;
     border-radius: 8px;
